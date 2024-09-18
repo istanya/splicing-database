@@ -8,7 +8,7 @@
   </div>
   <div>
   <el-input 
-    v-model="inputGene"
+    v-model="settings.gene"
     class="m-2" 
     style="width: 90%"
     placeholder="Please input"
@@ -23,30 +23,41 @@
   </div>
   <div>
     <el-switch
-      v-model="filtered"
+      v-model="settings.isFiltered"
       class="mb-2"
       active-text="filtered"
     />
   </div>
   <div>
-    <el-button type="primary" plain>show genome browser</el-button>
+    <el-switch
+      v-model="settings.isIGV"
+      class="mb-2"
+      active-text="show genome browser"
+    />
   </div>
   </el-menu>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, reactive } from 'vue'
   import { Search } from '@element-plus/icons-vue'
+  import { Settings } from '~/types/settings';
+
 
   const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
+  (e: 'update:modelValue', value: Settings): void;
 }>();
- 
-  const filtered = ref(false)
-  const inputGene = ref('')
+
+
+  const settings:Settings = reactive({
+    gene:'',
+    isFiltered:false,
+    isIGV:false,
+  });
+
 
   const setGene = () => {
-    emit('update:modelValue', inputGene.value);
+    emit('update:modelValue', settings);
   };
 </script>
 

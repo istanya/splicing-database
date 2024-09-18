@@ -2,19 +2,26 @@
   <el-config-provider namespace="ep">
     <BaseHeader />
     <div class="flex main-container">
-      <BaseSide v-model="gene" />
+      <BaseSide v-model="settings" />
       <div w="full" py="4">
-        <Struct :gene="gene"/>
-        <Expr :gene="gene" />
+        <Struct :gene="settings.gene"/>
+        <Expr :gene="settings.gene" />
+        <IGV />
       </div>
     </div>
   </el-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { reactive } from 'vue'
+import { Settings } from './types/settings';
 
-const gene = ref('AT1G01020')
+const settings:Settings = reactive({
+    gene:'AT1G01020',
+    isFiltered:false,
+    isIGV:false,
+  });
+
 </script>
 
 <style>

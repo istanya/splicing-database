@@ -22,6 +22,7 @@ declare module 'vue' {
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     Expr: typeof import('./components/Expr.vue')['default']
+    IGV: typeof import('./components/IGV.vue')['default']
     Struct: typeof import('./components/Struct.vue')['default']
   }
 }
