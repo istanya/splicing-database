@@ -2,10 +2,20 @@
   <el-config-provider namespace="ep">
     <BaseHeader />
     <div class="flex main-container">
-      <BaseSide />
+      <BaseSide v-model="gene" />
+      <div w="full" py="4">
+        <Struct :gene="gene"/>
+        <Expr :gene="gene" />
+      </div>
     </div>
   </el-config-provider>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const gene = ref('AT1G01020')
+</script>
 
 <style>
 #app {

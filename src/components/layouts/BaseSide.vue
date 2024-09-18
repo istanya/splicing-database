@@ -8,18 +8,28 @@
   </div>
   <div>
   <el-input 
-    v-model="input1"
+    v-model="inputGene"
     class="m-2" 
     style="width: 90%"
     placeholder="Please input"
   >
     <template #append>
-          <el-button :icon="Search" />
+          <el-button 
+            :icon="Search" 
+            @click="setGene"
+          />
     </template>
   </el-input>
   </div>
   <div>
-  <el-button type="primary" plain>show genome browser</el-button>
+    <el-switch
+      v-model="filtered"
+      class="mb-2"
+      active-text="filtered"
+    />
+  </div>
+  <div>
+    <el-button type="primary" plain>show genome browser</el-button>
   </div>
   </el-menu>
 </template>
@@ -28,7 +38,16 @@
   import { ref } from 'vue'
   import { Search } from '@element-plus/icons-vue'
 
-  const input1 = ref('')
+  const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+ 
+  const filtered = ref(false)
+  const inputGene = ref('')
+
+  const setGene = () => {
+    emit('update:modelValue', inputGene.value);
+  };
 </script>
 
 <style>
