@@ -1,3 +1,22 @@
+<template>
+  <div>{{ pdfPath }}</div>
+  <div>
+    <el-space
+      fill
+      wrap
+      :fill-ratio="fillRatio"
+      :direction="direction"
+      style="width: 90%"
+    >
+      <el-card class="box-card">
+        <el-scrollbar height="400px">
+          <VuePDF :pdf="pdf" :page=1 />
+        </el-scrollbar>
+      </el-card>
+    </el-space>
+</div>
+</template>
+
 <script lang="ts" setup>
 
 import type { SpaceInstance } from 'element-plus'
@@ -19,25 +38,6 @@ const { pdf} = usePDF(pdfPath)
 const direction = ref<SpaceInstance['direction']>('horizontal')
 const fillRatio = ref(30)
 </script>
-
-<template>
-  <div>{{ pdfPath }}</div>
-  <div>
-    <el-space
-      fill
-      wrap
-      :fill-ratio="fillRatio"
-      :direction="direction"
-      style="width: 90%"
-    >
-      <el-card class="box-card">
-        <el-scrollbar height="400px">
-          <VuePDF :pdf="pdf" :page=1 />
-        </el-scrollbar>
-      </el-card>
-    </el-space>
-</div>
-</template>
 
 <style scoped>
 .scrollbar-demo-item {
