@@ -18,25 +18,20 @@
 </template>
 
 <script lang="ts" setup>
+  import type { SpaceInstance } from 'element-plus'
+  import { VuePDF, usePDF } from '@tato30/vue-pdf'
+  import { ref, computed } from 'vue'
+  import { useStore } from '~/store/state';
 
-import type { SpaceInstance } from 'element-plus'
-import { VuePDF, usePDF } from '@tato30/vue-pdf'
-import { ref, computed } from 'vue'
+  const store = useStore();
 
-interface Props {
-  gene: string;
-}
+  const pdfPath = computed((): string => {
+    return `https://travatrava.s3.eu-north-1.amazonaws.com/${store.state.geneID}_struct.pdf`;
+  });
 
-const props = defineProps<Props>();
-
-const pdfPath = computed((): string => {
-  return `https://travatrava.s3.eu-north-1.amazonaws.com/${props.gene}_struct.pdf`;
-});
-const { pdf} = usePDF(pdfPath)
-
-
-const direction = ref<SpaceInstance['direction']>('horizontal')
-const fillRatio = ref(30)
+  const { pdf} = usePDF(pdfPath)
+  const direction = ref<SpaceInstance['direction']>('horizontal')
+  const fillRatio = ref(30)
 </script>
 
 <style scoped>

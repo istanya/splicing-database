@@ -8,7 +8,7 @@
   </div>
   <div>
   <el-input 
-    v-model="settings.gene"
+    v-model="input"
     class="m-2" 
     style="width: 90%"
     placeholder="Please input"
@@ -23,14 +23,16 @@
   </div>
   <div>
     <el-switch
-      v-model="settings.isFiltered"
+      @change="setIsFiltered"
+      v-model="isFiltered"
       class="mb-2"
       active-text="filtered"
     />
   </div>
   <div>
     <el-switch
-      v-model="settings.isIGV"
+      @change="setIsIGV"
+      v-model="isIGV"
       class="mb-2"
       active-text="show genome browser"
     />
@@ -39,25 +41,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue'
+  import { ref} from 'vue'
   import { Search } from '@element-plus/icons-vue'
-  import { Settings } from '~/types/settings';
+  import { useStore } from '~/store/state';
+  import { MutationTypes} from '~/store/state'
 
+  
+  const input = ref('')
+  const isFiltered = ref(false)
+  const isIGV = ref(false)
 
-  const emit = defineEmits<{
-  (e: 'update:modelValue', value: Settings): void;
-}>();
-
-
-  const settings:Settings = reactive({
-    gene:'',
-    isFiltered:false,
-    isIGV:false,
-  });
-
+  const store = useStore();
 
   const setGene = () => {
-    emit('update:modelValue', settings);
+    store.commit(MutationTypes.SET_GENE, input);
+  };
+
+  const setIsFiltered = () => {
+    store.commit(MutationTypes.SET_IS_FILTERED, isFiltered);
+  };
+
+  const setIsIGV = () => {
+    store.commit(MutationTypes.SET_IS_IGV, isIGV);
   };
 </script>
 

@@ -2,26 +2,20 @@
   <el-config-provider namespace="ep">
     <BaseHeader />
     <div class="flex main-container">
-      <BaseSide v-model="settings" />
+      <BaseSide  />
       <div w="full" py="4">
-        <Struct :gene="settings.gene"/>
-        <Expr :gene="settings.gene" />
-        <IGV />
+        <Struct />
+        <Expr />
+        <IGV v-if="store.state.isIGV"/>
       </div>
     </div>
   </el-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { Settings } from './types/settings';
+  import { useStore } from '~/store/state';
 
-const settings:Settings = reactive({
-    gene:'AT1G01020',
-    isFiltered:false,
-    isIGV:false,
-  });
-
+  const store = useStore();
 </script>
 
 <style>
