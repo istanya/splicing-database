@@ -1,18 +1,36 @@
 import { createStore, Store as VuexStore, CommitOptions, DispatchOptions } from 'vuex';
 import { InjectionKey } from 'vue';
 import { useStore as baseUseStore } from 'vuex';
+import jsonData from '~/data/gene.json';
+
+export interface GeneData {
+  gene_start: number;
+  gene_end: number;
+  seq_name: string;
+  file_start: string;
+  file_end: string;
+}
+
+const geneDataMap = new Map<string, GeneData>(Object.entries(jsonData));
 
 export interface State {
+    dataUrl: string;
     geneID: string;
     isFiltered: boolean;
     isIGV: boolean;
+    geneData: GeneData;
+    geneDataMap: Map<string, GeneData>;
   }
 
 
 const state:State = {
-    geneID:'AT1G01020',
-    isFiltered:false,
+    dataUrl:'https://travatrava.s3.eu-north-1.amazonaws.com',
+    geneID:'AT1G01010',
+    isFiltered:true,
     isIGV:false,
+    geneData: geneDataMap.get('AT1G01010') as GeneData,
+    geneDataMap: geneDataMap,
+    
   };
 
 export enum MutationTypes {

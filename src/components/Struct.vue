@@ -1,5 +1,4 @@
 <template>
-  <div>{{ pdfPath }}</div>
   <div>
     <el-space
       fill
@@ -26,7 +25,11 @@
   const store = useStore();
 
   const pdfPath = computed((): string => {
-    return `https://travatrava.s3.eu-north-1.amazonaws.com/${store.state.geneID}_struct.pdf`;
+    if (store.state.isFiltered) {
+      return `${ store.state.dataUrl }/picts/w_orf/picts_struct/${store.state.geneID}_struct.pdf`;
+    }
+
+    return `${ store.state.dataUrl }/picts/all_iso/picts_struct/${store.state.geneID}_struct.pdf`;
   });
 
   const { pdf} = usePDF(pdfPath)
@@ -40,6 +43,7 @@
   align-items: center;
   justify-content: center;
   height: 50px;
+  width: 90%;
   margin: 10px;
   text-align: center;
   border-radius: 4px;

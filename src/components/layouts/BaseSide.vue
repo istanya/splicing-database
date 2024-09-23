@@ -1,7 +1,7 @@
 <template>
   <el-menu
     class="el-menu-vertical-demo"
-    :collapse="false"
+    :collapse="collapse"
   >
   <div>
     <p>Enter gene id</p>
@@ -44,17 +44,22 @@
   import { ref} from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import { useStore } from '~/store/state';
-  import { MutationTypes} from '~/store/state'
+  import { MutationTypes, GeneData} from '~/store/state'
 
-  
-  const input = ref('')
-  const isFiltered = ref(false)
+  const collapse = ref(true)
+
+  const input = ref('AT1G01010')
+  const isFiltered = ref(true)
   const isIGV = ref(false)
 
   const store = useStore();
 
   const setGene = () => {
     store.commit(MutationTypes.SET_GENE, input);
+    store.state.geneData = store.state.geneDataMap.get(input.value) as GeneData
+
+    isIGV.value = false
+    store.commit(MutationTypes.SET_IS_IGV, isIGV);
   };
 
   const setIsFiltered = () => {
@@ -69,5 +74,10 @@
 <style>
 .input-with-select .el-input-group__prepend {
   background-color: var(--el-fill-color-blank);
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 400px;
+  min-height: 400px;
 }
 </style>

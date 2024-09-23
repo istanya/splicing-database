@@ -3,25 +3,39 @@
 </template>
 
 <script lang="ts" setup>
-  import { onBeforeMount } from 'vue';
   import { onMounted } from 'vue';
+  import { useStore } from '~/store/state';
 
   import igv from 'igv'
+
+  const store = useStore();
+  const datPath = store.state.dataUrl;
+
+  const region = `${ store.state.geneData.seq_name }:${ store.state.geneData.gene_start }-${ store.state.geneData.gene_end }`;
+
+  const fastaURL = `${ datPath }/fasta/GCF_000001735.4_TAIR10.1_genomic_${ store.state.geneData.seq_name }.fasta`
+  const indexURL = `${ datPath }/fasta/GCF_000001735.4_TAIR10.1_genomic_${ store.state.geneData.seq_name }.fasta.fai`
+
+  const gtfURL = `${ datPath }/gtf/v4_annotation_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.gtf`
+
+  const bamURL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam`
+  const baiURL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam.bai`
+
   
   const options =
     {
-        locus: "NC_003070.9:392,668-392,751",
+        locus: region,
         reference: {
-            "id": "NC_003070.9",
-            "fastaURL": "https://travatrava.s3.eu-north-1.amazonaws.com/athaliana_1Mb.fasta",
-            "indexURL": "https://travatrava.s3.eu-north-1.amazonaws.com/athaliana_1Mb.fasta.fai",
+            "id": store.state.geneData.seq_name,
+            "fastaURL": fastaURL,
+            "indexURL": indexURL,
         },
         tracks:
             [
                 {
                     "type": "annotation",
                     "format": "gtf",
-                    "url": "https://travatrava.s3.eu-north-1.amazonaws.com/annotation.gtf",
+                    "url": gtfURL,
                     "name": "Gencode (gtf) -- genes filtered",
                     "visibilityWindow": 10000000,
                     "filterTypes": ["gene", "chromosome"],
@@ -29,23 +43,19 @@
                 },
                 {
                 "type": "alignment",
-                "url": "https://travatrava.s3.eu-north-1.amazonaws.com/unique_map_rep1.sorted.bam",
-                "indexURL": "https://travatrava.s3.eu-north-1.amazonaws.com/unique_map_rep1.sorted.bam.bai",
+                "url": bamURL,
+                "indexURL": baiURL,
                 "name": "rep1",
                 "format": "bam",
-                groupBy: "strand",
                 height: 700,
-                filter: {mq: 30}
             },
             {
                 "type": "alignment",
-                "url": "https://travatrava.s3.eu-north-1.amazonaws.com/unique_map_rep2.sorted.bam",
-                "indexURL": "https://travatrava.s3.eu-north-1.amazonaws.com/unique_map_rep2.sorted.bam.bai",
+                "url": bamURL,
+                "indexURL": baiURL,
                 "name": "rep2",
                 "format": "bam",
-                groupBy: "strand",
                 height: 700,
-                filter: {mq: 30}
             }
             ]
     }

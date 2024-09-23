@@ -1,5 +1,4 @@
 <template>
-  <div>{{ pdfPath }}</div>
   <div>
     <el-space
       fill
@@ -9,7 +8,7 @@
       style="width: 90%"
     >
       <el-card class="box-card">
-        <el-scrollbar height="400px">
+        <el-scrollbar height="400px" >
           <VuePDF :pdf="pdf" :page=1 />
         </el-scrollbar>
       </el-card>
@@ -26,7 +25,11 @@
   const store = useStore();
 
   const pdfPath = computed((): string => {
-    return `https://travatrava.s3.eu-north-1.amazonaws.com/${store.state.geneID}_expr.pdf`;
+    if (store.state.isFiltered) {
+      return `${ store.state.dataUrl }/picts/w_orf/picts_expr/${store.state.geneID}_expr.pdf`;
+    }
+
+    return `${ store.state.dataUrl }/picts/all_iso/picts_expr/${store.state.geneID}_expr.pdf`;
   });
 
   const { pdf} = usePDF(pdfPath)
@@ -40,6 +43,7 @@
   align-items: center;
   justify-content: center;
   height: 50px;
+  width: 50px;
   margin: 10px;
   text-align: center;
   border-radius: 4px;
