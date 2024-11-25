@@ -1,14 +1,16 @@
 <template>
   <el-config-provider namespace="ep">
     <BaseHeader />
-    <div class="flex main-container">
-      <BaseSide  />
-      <div w="full" py="4">
+    <el-container>
+      <el-aside width="300px">
+        <BaseSide  />
+      </el-aside>
+      <el-main w="full" py="4">
         <Struct />
         <Expr />
         <IGV v-if="store.state.isIGV"/>
-      </div>
-    </div>
+      </el-main>
+    </el-container>
   </el-config-provider>
 </template>
 
@@ -24,7 +26,4 @@
   color: var(--ep-text-color-primary);
 }
 
-.main-container {
-  height: calc(100vh - var(--ep-menu-item-height) - 3px);
-}
 </style>

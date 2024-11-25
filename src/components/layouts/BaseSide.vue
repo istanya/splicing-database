@@ -1,8 +1,4 @@
 <template>
-  <el-menu
-    class="el-menu-vertical-demo"
-    :collapse="collapse"
-  >
   <div>
     <p>Enter gene id</p>
   </div>
@@ -37,7 +33,6 @@
       active-text="show genome browser"
     />
   </div>
-  </el-menu>
 </template>
 
 <script lang="ts" setup>
@@ -45,8 +40,6 @@
   import { Search } from '@element-plus/icons-vue'
   import { useStore } from '~/store/state';
   import { MutationTypes, GeneData} from '~/store/state'
-
-  const collapse = ref(true)
 
   const input = ref('AT1G01010')
   const isFiltered = ref(true)
@@ -74,10 +67,5 @@
 <style>
 .input-with-select .el-input-group__prepend {
   background-color: var(--el-fill-color-blank);
-}
-
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 400px;
-  min-height: 400px;
 }
 </style>

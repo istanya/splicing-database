@@ -18,8 +18,11 @@
 
   const gtfURL = `${ datPath }/gtf/v4_annotation_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.gtf`
 
-  const bamURL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam`
-  const baiURL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam.bai`
+  const bam1URL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam`
+  const bai1URL = `${ datPath }/bam_files/1/unique_map_nanopore_rep_1_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam.bai`
+
+  const bam2URL = `${ datPath }/bam_files/2/unique_map_nanopore_rep_2_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam`
+  const bai2URL = `${ datPath }/bam_files/2/unique_map_nanopore_rep_2_${ store.state.geneData.seq_name }_${ store.state.geneData.file_start }_${ store.state.geneData.file_end }.sorted.bam.bai`
 
   
   const options =
@@ -36,27 +39,34 @@
                     "type": "annotation",
                     "format": "gtf",
                     "url": gtfURL,
-                    "name": "Gencode (gtf) -- genes filtered",
+                    "name": "gencode(gtf)",
                     "visibilityWindow": 10000000,
                     "filterTypes": ["gene", "chromosome"],
-                    "selected": true
+                    "selected": true,
+                    height: 200,
                 },
                 {
-                "type": "alignment",
-                "url": bamURL,
-                "indexURL": baiURL,
-                "name": "rep1",
-                "format": "bam",
-                height: 700,
-            },
-            {
-                "type": "alignment",
-                "url": bamURL,
-                "indexURL": baiURL,
-                "name": "rep2",
-                "format": "bam",
-                height: 700,
-            }
+                    "type": "alignment",
+                    "url": bam1URL,
+                    "indexURL": bai1URL,
+                    "name": "rep1",
+                    "format": "bam",
+                    "colorBy": "strand",
+                    "showMismatches": false,
+                    "showInsertions": false,
+                    height: 700,
+                },
+                {
+                    "type": "alignment",
+                    "url": bam2URL,
+                    "indexURL": bai2URL,
+                    "name": "rep2",
+                    "format": "bam",
+                    "colorBy": "strand",
+                    "showMismatches": false,
+                    "showInsertions": false,
+                    height: 700,
+                }
             ]
     }
 
