@@ -4,6 +4,7 @@ import { useStore as baseUseStore } from 'vuex';
 import jsonData from '~/data/gene.json';
 
 export interface GeneData {
+  gene_id: string;
   gene_start: number;
   gene_end: number;
   seq_name: string;
@@ -15,7 +16,6 @@ const geneDataMap = new Map<string, GeneData>(Object.entries(jsonData));
 
 export interface State {
     dataUrl: string;
-    geneID: string;
     isFiltered: boolean;
     isIGV: boolean;
     geneData: GeneData;
@@ -25,7 +25,6 @@ export interface State {
 
 const state:State = {
     dataUrl:'https://travatrava.s3.eu-north-1.amazonaws.com',
-    geneID:'AT1G01010',
     isFiltered:true,
     isIGV:false,
     geneData: geneDataMap.get('AT1G01010') as GeneData,
@@ -34,21 +33,16 @@ const state:State = {
   };
 
 export enum MutationTypes {
-    SET_GENE = 'SET_GENE',
     SET_IS_FILTERED = 'SET_IS_FILTERED',
     SET_IS_IGV = 'SET_IS_IGV',
   }
 
 export type Mutations<S = State> = {
-    [MutationTypes.SET_GENE](state: S, geneID: string): void;
     [MutationTypes.SET_IS_FILTERED](state: S, isFiltered: boolean): void;
     [MutationTypes.SET_IS_IGV](state: S, isIGV: boolean): void;
   };
   
 const mutations: Mutations = {
-    [MutationTypes.SET_GENE](state, geneID: string) {
-      state.geneID = geneID;
-    },
     [MutationTypes.SET_IS_FILTERED](state, isFiltered: boolean) {
       state.isFiltered = isFiltered;
     },

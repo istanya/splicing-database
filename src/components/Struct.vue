@@ -26,10 +26,10 @@
 
   const pdfPath = computed((): string => {
     if (store.state.isFiltered) {
-      return `${ store.state.dataUrl }/picts/w_orf/picts_struct/${store.state.geneID}_struct.pdf`;
+      return `${ store.state.dataUrl }/picts/w_orf/picts_struct/${store.state.geneData.gene_id}_struct.pdf`;
     }
 
-    return `${ store.state.dataUrl }/picts/all_iso/picts_struct/${store.state.geneID}_struct.pdf`;
+    return `${ store.state.dataUrl }/picts/all_iso/picts_struct/${store.state.geneData.gene_id}_struct.pdf`;
   });
 
   const { pdf} = usePDF(pdfPath)
