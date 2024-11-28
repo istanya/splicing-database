@@ -3,9 +3,7 @@
     <el-header class="header"><p>Enter gene id</p></el-header>
     <el-input 
       v-model="input"
-      class="m-2" 
       style="width: 90%"
-      placeholder="Please input"
     >
       <template #append>
             <el-button 
@@ -52,11 +50,11 @@
   import { useStore } from '~/store/state';
   import { MutationTypes, GeneData} from '~/store/state'
 
-  const input = ref('AT1G01010')
+  const store = useStore();
+
+  const input = ref(store.state.geneData.gene_id)
   const isFiltered = ref(true)
   const isIGV = ref(false)
-
-  const store = useStore();
 
   const setGene = () => {
     store.state.geneData = store.state.geneDataMap.get(input.value) as GeneData
@@ -74,8 +72,8 @@
   };
 
   const downloadFile= async() => {
-      const fileUrl = `${ store.state.dataUrl }/picts/w_orf/picts_expr/${store.state.geneData.gene_id}_expr.pdf`; // Replace with your file URL
-      const fileName =`${store.state.geneData.gene_id}_expr.pdf`; // Replace with desired file name
+      const fileUrl = `${ store.state.dataUrl }/picts/common/${store.state.geneData.gene_id}.pdf`; // Replace with your file URL
+      const fileName =`${store.state.geneData.gene_id}.pdf`; // Replace with desired file name
 
       try {
         const response = await axios.get(fileUrl, {
@@ -99,10 +97,6 @@
 </script>
 
 <style>
-.input-with-select .el-input-group__prepend {
-  background-color: var(--el-fill-color-blank);
-}
-
 .container {
     margin-top: 30px;  
     margin-left: 20px;  
@@ -110,6 +104,6 @@
 
 .header {
     text-align: left;
-    margin-bottom: -10px;   
+    margin-bottom: -15px;   
 }
 </style>

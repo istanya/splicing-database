@@ -27,7 +27,7 @@ const state:State = {
     dataUrl:'https://travatrava.s3.eu-north-1.amazonaws.com',
     isFiltered:true,
     isIGV:false,
-    geneData: geneDataMap.get('AT1G01010') as GeneData,
+    geneData: geneDataMap.get('AT5G67560') as GeneData,
     geneDataMap: geneDataMap,
     
   };

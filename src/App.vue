@@ -6,6 +6,7 @@
         <BaseSide  />
       </el-aside>
       <el-main w="full" py="4">
+        <ImageCommon />
         <Struct />
         <Expr />
         <IGV v-if="store.state.isIGV"/>
