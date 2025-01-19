@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="pdf">
     <el-space
       fill
       wrap
@@ -8,7 +8,7 @@
       style="width: 95%"
     >
       <el-card class="box-card">
-        <el-scrollbar height="400px">
+        <el-scrollbar height="600px">
           <VuePDF :pdf="pdf" :page=1 :scale="scale"/>
         </el-scrollbar>
       </el-card>
@@ -31,6 +31,7 @@
 
     return `${ store.state.dataUrl }/picts/common/${store.state.geneData.gene_id}.pdf`;
   });
+
 
   const { pdf} = usePDF(pdfPath)
   const direction = ref<SpaceInstance['direction']>('horizontal')

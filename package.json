@@ -12,7 +12,7 @@
   "dependencies": {
     "@tato30/vue-pdf": "^1.11.1",
     "axios": "^1.7.8",
-    "element-plus": "^2.6.2",
+    "element-plus": "^2.9.3",
     "igv": "^3.0.5",
     "vue": "^3.4.21",
     "vuex": "^4.0.2"
@@ -21,7 +21,7 @@
     "@iconify-json/ep": "^1.1.15",
     "@types/node": "^20.11.30",
     "@vitejs/plugin-vue": "^5.0.4",
-    "sass": "^1.72.0",
+    "sass": "^1.83.4",
     "typescript": "^5.4.3",
     "unocss": "^0.58.6",
     "unplugin-vue-components": "^0.26.0",
