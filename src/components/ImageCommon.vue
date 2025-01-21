@@ -25,11 +25,15 @@
   const store = useStore();
 
   const pdfPath = computed((): string => {
-    if (store.state.isFiltered) {
-      return `${ store.state.dataUrl }/picts/common/${store.state.geneData.gene_id}.pdf`;
+    if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
+      return `${ store.state.dataUrl }/picts/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+    } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
+      return `${ store.state.dataUrl }/picts/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+    } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
+      return `${ store.state.dataUrl }/picts/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+    } else {
+      return `${ store.state.dataUrl }/picts/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
     }
-
-    return `${ store.state.dataUrl }/picts/common/${store.state.geneData.gene_id}.pdf`;
   });
 
 

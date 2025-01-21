@@ -13,25 +13,7 @@
       </template>
     </el-input>
   </el-container>
-  
-  <el-container class="container">
-    <el-switch
-      @change="setIsFiltered"
-      v-model="isFiltered"
-      class="mb-2"
-      active-text="filtered"
-    />
-  </el-container>
-  
-  <el-container class="container">
-    <el-button 
-      type="primary"
-      @click="downloadFile"
-    >
-      download
-    </el-button>
-  </el-container>
-  
+
   <el-container class="container">
     <el-switch
       @change="setIsIGV"
@@ -39,6 +21,33 @@
       class="mb-2"
       active-text="show genome browser"
     />
+  </el-container>
+  
+  <el-container class="container">
+    <el-switch
+      @change="setIsIsoformsWithOrfOnly"
+      v-model="isIsoformsWithOrfOnly"
+      class="mb-2"
+      active-text="Isoforms with ORF only"
+    />
+  </el-container>
+
+  <el-container class="container">
+    <el-switch
+      @change="setIsSortByExpression"
+      v-model="isSortByExpression"
+      class="mb-2"
+      active-text="Sort by expression"
+    />
+  </el-container>
+  
+  <el-container class="container">
+    <el-button 
+      type="primary"
+      @click="downloadFigureFile"
+    >
+      Download figure
+    </el-button>
   </el-container>
   
 </template>
@@ -53,7 +62,8 @@
   const store = useStore();
 
   const input = ref(store.state.geneData.gene_id)
-  const isFiltered = ref(true)
+  const isIsoformsWithOrfOnly = ref(true)
+  const isSortByExpression = ref(true)
   const isIGV = ref(false)
 
   const setGene = () => {
@@ -63,17 +73,31 @@
     store.commit(MutationTypes.SET_IS_IGV, isIGV);
   };
 
-  const setIsFiltered = () => {
-    store.commit(MutationTypes.SET_IS_FILTERED, isFiltered);
+  const setIsIsoformsWithOrfOnly = () => {
+    store.commit(MutationTypes.SET_IS_ISOFORMS_WITH_ORF_ONLY, isIsoformsWithOrfOnly);
+  };
+
+  const setIsSortByExpression = () => {
+    store.commit(MutationTypes.SET_IS_SORT_BY_EXPRESSION, isSortByExpression);
   };
 
   const setIsIGV = () => {
     store.commit(MutationTypes.SET_IS_IGV, isIGV);
   };
 
-  const downloadFile= async() => {
-      const fileUrl = `${ store.state.dataUrl }/picts/common/${store.state.geneData.gene_id}.pdf`; // Replace with your file URL
-      const fileName =`${store.state.geneData.gene_id}.pdf`; // Replace with desired file name
+  const downloadFigureFile= async() => {
+      let fileUrl:string;
+      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
+        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
+        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
+        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+      } else {
+        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      }
+   
+      const fileName =`${store.state.geneData.gene_id}.pdf`;
 
       try {
         const response = await axios.get(fileUrl, {
