@@ -49,6 +49,33 @@
       Download figure
     </el-button>
   </el-container>
+
+  <el-container class="container">
+    <el-button 
+      type="primary"
+      @click="downloadIsoformStructureTableFile"
+    >
+      Download isoform structure table
+    </el-button>
+  </el-container>
+
+  <el-container class="container">
+    <el-button 
+      type="primary"
+      @click="downloadIsoformExpressionTableFile"
+    >
+      Download isoform expression table
+    </el-button>
+  </el-container>
+
+  <el-container class="container">
+    <el-button 
+      type="primary"
+      @click="downloadGeneAndIsoformsSequencesFile"
+    >
+      Download gene and isoforms sequences
+    </el-button>
+  </el-container>
   
 </template>
 
@@ -85,7 +112,7 @@
     store.commit(MutationTypes.SET_IS_IGV, isIGV);
   };
 
-  const downloadFigureFile= async() => {
+  const downloadFigureFile = async() => {
       let fileUrl:string;
       if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
         fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
@@ -99,6 +126,47 @@
    
       const fileName =`${store.state.geneData.gene_id}.pdf`;
 
+      try {
+        const response = await downloadFile(fileUrl, fileName);
+      } catch (error) {
+        console.error('Error downloading the file', error);
+      }
+    }
+
+  const downloadIsoformStructureTableFile = async() => {
+    const fileUrl =`${ store.state.dataUrl }/tables/iso_struct/${store.state.geneData.gene_id}.txt`;
+    const fileName =`${store.state.geneData.gene_id}.txt`;
+
+    try {
+      const response = await downloadFile(fileUrl, fileName);
+    } catch (error) {
+      console.error('Error downloading the file', error);
+    }
+  }
+
+  const downloadIsoformExpressionTableFile = async() => {
+    const fileUrl =`${ store.state.dataUrl }/tables/iso_expr/${store.state.geneData.gene_id}.txt`;
+    const fileName =`${store.state.geneData.gene_id}.txt`;
+
+    try {
+      const response = await downloadFile(fileUrl, fileName);
+    } catch (error) {
+      console.error('Error downloading the file', error);
+    }
+  }
+
+  const downloadGeneAndIsoformsSequencesFile = async() => {
+    const fileUrl =`${ store.state.dataUrl }/tables/fasta/${store.state.geneData.gene_id}.fasta`;
+    const fileName =`${store.state.geneData.gene_id}.fasta`;
+
+    try {
+      const response = await downloadFile(fileUrl, fileName);
+    } catch (error) {
+      console.error('Error downloading the file', error);
+    }
+  }
+
+  const downloadFile = async(fileUrl:string, fileName:string) => {
       try {
         const response = await axios.get(fileUrl, {
           responseType: 'blob', // Important: Get file as a Blob
@@ -117,6 +185,7 @@
         console.error('Error downloading the file', error);
       }
     }
+    
 
 </script>
 
