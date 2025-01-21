@@ -22,6 +22,8 @@ declare module 'vue' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     IGV: typeof import('./components/IGV.vue')['default']
     ImageCommon: typeof import('./components/ImageCommon.vue')['default']
   }
