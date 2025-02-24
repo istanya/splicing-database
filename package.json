@@ -15,6 +15,7 @@
     "element-plus": "^2.9.3",
     "igv": "^3.0.5",
     "vue": "^3.4.21",
+    "vue-router": "^4.5.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

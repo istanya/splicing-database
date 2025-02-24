@@ -5,7 +5,7 @@
       wrap
       :fill-ratio="fillRatio"
       :direction="direction"
-      style="width: 95%"
+      style="width: 100%"
     >
       <el-card class="box-card">
         <el-scrollbar height="600px">

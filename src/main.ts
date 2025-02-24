@@ -1,5 +1,6 @@
 import { createApp,reactive } from "vue";
 import App from "./App.vue";
+import router from './router'
 
 // import "~/styles/element/index.scss";
 
@@ -19,4 +20,5 @@ import {store,key} from "./store/state";
 
 const app = createApp(App)
 app.use(store,key);
+app.use(router);
 app.mount("#app");

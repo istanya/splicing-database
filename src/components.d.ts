@@ -8,10 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
-    BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
+    BaseSide: typeof import('./components/pages/brows_db/BaseSide.vue')['default']
+    BrowseDB: typeof import('./components/pages/brows_db/BrowseDB.vue')['default']
+    Cascader: typeof import('./components/layouts/Cascader.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -24,7 +27,10 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    IGV: typeof import('./components/IGV.vue')['default']
-    ImageCommon: typeof import('./components/ImageCommon.vue')['default']
+    IGV: typeof import('./components/pages/brows_db/IGV.vue')['default']
+    ImageCommon: typeof import('./components/pages/brows_db/ImageCommon.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    Samples: typeof import('./components/pages/samples/Samples.vue')['default']
   }
 }

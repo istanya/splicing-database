@@ -1,14 +1,9 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
+    <el-header style="height:40px"><Cascader /></el-header>
+    <el-header style="height:50px"><BaseHeader /></el-header>
     <el-container>
-      <el-aside width="300px">
-        <BaseSide  />
-      </el-aside>
-      <el-main w="full" py="4">
-        <ImageCommon />
-        <IGV v-if="store.state.isIGV"/>
-      </el-main>
+      <router-view />
     </el-container>
   </el-config-provider>
 </template>
