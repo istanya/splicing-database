@@ -1,9 +1,9 @@
 <template>
   <el-menu :default-active="route.path" router class="menu" mode="horizontal" style="width: 470px">
-    <el-menu-item index="/splicing_database/">About</el-menu-item>
-    <el-menu-item index="/splicing_database/browse_db">Browse DB</el-menu-item>
+    <el-menu-item index="/splicing_database/">Browse DB</el-menu-item>
     <el-menu-item index="/splicing_database/how_to_use">How to use</el-menu-item>
     <el-menu-item index="/splicing_database/samples">Samples</el-menu-item>
+    <el-menu-item index="/splicing_database/about">About</el-menu-item>
   </el-menu>
 </template>
 
