@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    About: typeof import('./components/pages/about/About.vue')['default']
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
     BaseSide: typeof import('./components/pages/brows_db/BaseSide.vue')['default']
     BrowseDB: typeof import('./components/pages/brows_db/BrowseDB.vue')['default']
@@ -18,6 +19,7 @@ declare module 'vue' {
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -27,6 +29,8 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElText: typeof import('element-plus/es')['ElText']
+    HowToUse: typeof import('./components/pages/how_to_use/HowToUse.vue')['default']
     IGV: typeof import('./components/pages/brows_db/IGV.vue')['default']
     ImageCommon: typeof import('./components/pages/brows_db/ImageCommon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -1,5 +1,5 @@
 <template>
-  <el-container class='container'>
+  <el-container class='cascader-container'>
     <el-cascader :options="options" :show-all-levels="false" :model-value="value"/>
   </el-container>
 </template>
@@ -16,8 +16,8 @@ var value =  'arabidopsis_thaliana'
 </script>
 
 <style>
-.container {
-    margin-top: 10px;
+.cascader-container {
+    margin: 10px;
     text-align: left;
   }
 </style>

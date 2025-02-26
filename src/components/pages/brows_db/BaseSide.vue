@@ -119,13 +119,13 @@
   const downloadFigureFile = async() => {
       let fileUrl:string;
       if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
-        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
       } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
-        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
       } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
-        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
       } else {
-        fileUrl = `${ store.state.dataUrl }/picts/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
       }
    
       const fileName =`${store.state.geneData.gene_id}.pdf`;
@@ -138,7 +138,7 @@
     }
 
   const downloadIsoformStructureTableFile = async() => {
-    const fileUrl =`${ store.state.dataUrl }/tables/iso_struct/${store.state.geneData.gene_id}.txt`;
+    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_struct/${store.state.geneData.gene_id}.txt`;
     const fileName =`${store.state.geneData.gene_id}.txt`;
 
     try {
@@ -149,7 +149,7 @@
   }
 
   const downloadIsoformExpressionTableFile = async() => {
-    const fileUrl =`${ store.state.dataUrl }/tables/iso_expr/${store.state.geneData.gene_id}.txt`;
+    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_expr/${store.state.geneData.gene_id}.txt`;
     const fileName =`${store.state.geneData.gene_id}.txt`;
 
     try {
@@ -160,7 +160,7 @@
   }
 
   const downloadGeneAndIsoformsSequencesFile = async() => {
-    const fileUrl =`${ store.state.dataUrl }/tables/fasta/${store.state.geneData.gene_id}.fasta`;
+    const fileUrl =`${ store.state.dataUrl }/tables/v2/fasta/${store.state.geneData.gene_id}.fasta`;
     const fileName =`${store.state.geneData.gene_id}.fasta`;
 
     try {
