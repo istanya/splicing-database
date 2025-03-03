@@ -138,8 +138,8 @@
     }
 
   const downloadIsoformStructureTableFile = async() => {
-    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_struct/${store.state.geneData.gene_id}.txt`;
-    const fileName =`${store.state.geneData.gene_id}.txt`;
+    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_struct/${store.state.geneData.gene_id}_struct.txt`;
+    const fileName =`${store.state.geneData.gene_id}_struct.txt`;
 
     try {
       const response = await downloadFile(fileUrl, fileName);
@@ -149,8 +149,8 @@
   }
 
   const downloadIsoformExpressionTableFile = async() => {
-    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_expr/${store.state.geneData.gene_id}.txt`;
-    const fileName =`${store.state.geneData.gene_id}.txt`;
+    const fileUrl =`${ store.state.dataUrl }/tables/v2/iso_expr/${store.state.geneData.gene_id}_expr.txt`;
+    const fileName =`${store.state.geneData.gene_id}_expr.txt`;
 
     try {
       const response = await downloadFile(fileUrl, fileName);

@@ -25,7 +25,7 @@
 
   const datPath = store.state.dataUrl;
   const dbLogo = `${ datPath }/style_data/db_logo.jpeg`
-  const dbLogoAside = `${ datPath }/style_data/VIGG_PGL_rus_text3_fin.jpeg`
+  const dbLogoAside = `${ datPath }/style_data/VIGG_PGL_IT_3.jpg`
 </script>
 
 <style>

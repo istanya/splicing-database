@@ -1,5 +1,8 @@
 <template>
-  <div v-if="pdf">
+  <div v-if="error">
+    <el-tag type="danger" class="error">Gene Id doesn't find or incorrect!</el-tag>
+  </div>
+  <div v-else>
     <el-space
       fill
       wrap
@@ -8,7 +11,7 @@
       style="width: 100%"
     >
       <el-card class="box-card">
-        <el-scrollbar height="600px">
+        <el-scrollbar class="scrollbar" height="600px">
           <VuePDF :pdf="pdf" :page=1 :scale="scale"/>
         </el-scrollbar>
       </el-card>
@@ -24,19 +27,26 @@
 
   const store = useStore();
 
+  const error = ref<string | null>(null);
+
   const pdfPath = computed((): string => {
-    if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
-      return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-    } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
-      return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
-    } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
-      return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-    } else {
-      return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+    error.value = null;
+    try {
+      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
+        return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
+        return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
+        return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
+      } else {
+        return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      }
+    } catch (err) {
+      error.value = (err as Error).message;
+      return "Unknown gen_id";
     }
   });
-
-
+  
   const { pdf} = usePDF(pdfPath)
   const direction = ref<SpaceInstance['direction']>('horizontal')
   const fillRatio = ref(30)
@@ -44,16 +54,28 @@
 </script>
 
 <style scoped>
-.scrollbar-demo-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  width: 95%;
-  margin: 10px;
-  text-align: center;
-  border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+.box-card {
+  --ep-card-padding: 5px;
+}
+
+.scrollbar {
   color: var(--el-color-primary);
+  --ep-scrollbar-opacity: 0.5;
+  --ep-scrollbar-bg-color: var(--ep-color-primary);
+  --ep-scrollbar-hover-opacity: 0.8;
+  --ep-scrollbar-hover-bg-color: var(--ep-color-primary);
+}
+
+.error {
+  --ep-tag-font-size: var(--ep-font-size-large);
+  height: 30px;
+}
+
+::v-deep(.ep-scrollbar__bar.is-horizontal) {
+  height: 10px;
+}
+
+::v-deep(.ep-scrollbar__bar.is-vertical) {
+  width: 10px;
 }
 </style>
