@@ -2,6 +2,9 @@
   <div v-if="error">
     <el-tag type="danger" class="error">Gene Id doesn't find or incorrect!</el-tag>
   </div>
+  <div v-else-if="errorNoInformation">
+    <el-tag type="danger" class="error">There is no information</el-tag>
+  </div>
   <div v-else>
     <el-space
       fill
@@ -12,7 +15,7 @@
     >
       <el-card class="box-card">
         <el-scrollbar class="scrollbar" height="600px">
-          <VuePDF :pdf="pdf" :page=1 :scale="scale"/>
+          <VuePDF ref="VPDF" :pdf="pdf" :page=1 :scale="scale"/>
         </el-scrollbar>
       </el-card>
     </el-space>
@@ -21,14 +24,14 @@
 
 <script lang="ts" setup>
   import type { SpaceInstance } from 'element-plus'
-  import { VuePDF, usePDF } from '@tato30/vue-pdf'
-  import { ref, computed } from 'vue'
+  import { VuePDF, usePDF, } from '@tato30/vue-pdf'
+  import { ref, computed, } from 'vue'
   import { useStore } from '~/store/state';
 
   const store = useStore();
 
   const error = ref<string | null>(null);
-
+  
   const pdfPath = computed((): string => {
     error.value = null;
     try {
@@ -46,8 +49,16 @@
       return "Unknown gen_id";
     }
   });
-  
-  const { pdf} = usePDF(pdfPath)
+
+  const errorNoInformation = ref<string | null>(null);
+  function onError(err: any) {
+    errorNoInformation.value = (err as Error).message;
+  }
+
+  const { pdf} = usePDF(pdfPath, {
+    onError
+  })
+    
   const direction = ref<SpaceInstance['direction']>('horizontal')
   const fillRatio = ref(30)
   const scale = ref(0.4)

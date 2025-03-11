@@ -27,7 +27,7 @@ export interface State {
 const state:State = {
     dataUrl:'https://travatrava.s3.eu-north-1.amazonaws.com',
     isIsoformsWithOrfOnly:false,
-    isSortByExpression:false,
+    isSortByExpression:true,
     isIGV:false,
     geneData: geneDataMap.get('AT5G67560') as GeneData,
     geneDataMap: geneDataMap,

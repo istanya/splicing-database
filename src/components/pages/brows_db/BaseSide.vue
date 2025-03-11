@@ -93,8 +93,8 @@
   const store = useStore();
 
   const input = ref(store.state.geneData.gene_id)
-  const isIsoformsWithOrfOnly = ref(false)
-  const isSortByExpression = ref(false)
+  const isIsoformsWithOrfOnly = store.state.isIsoformsWithOrfOnly
+  const isSortByExpression = store.state.isSortByExpression
   const isIGV = ref(false)
 
   const setGene = () => {
