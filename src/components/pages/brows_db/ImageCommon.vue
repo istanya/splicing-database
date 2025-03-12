@@ -3,7 +3,7 @@
     <el-tag type="danger" class="error">Gene Id doesn't find or incorrect!</el-tag>
   </div>
   <div v-else-if="errorNoInformation">
-    <el-tag type="danger" class="error">There is no information</el-tag>
+    <el-tag type="danger" class="error">No isoforms with predicted ORFs</el-tag>
   </div>
   <div v-else>
     <el-space
@@ -14,7 +14,7 @@
       style="width: 100%"
     >
       <el-card class="box-card">
-        <el-scrollbar class="scrollbar" height="600px">
+        <el-scrollbar class="scrollbar" always height="600px">
           <VuePDF ref="VPDF" :pdf="pdf" :page=1 :scale="scale"/>
         </el-scrollbar>
       </el-card>

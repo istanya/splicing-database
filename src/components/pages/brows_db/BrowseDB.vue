@@ -4,7 +4,7 @@
     </el-aside>
     <el-main w="full" py="4" class="main">
         <ImageCommon />
-        <IGV v-if="store.state.isIGV"/>
+        <IGV style="margin-top: 10px;" v-if="store.state.isIGV"/>
     </el-main>
 </template>
 

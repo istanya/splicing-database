@@ -61,6 +61,15 @@
                 </el-container>
                 <el-text class="text_by_image">Download gene and isoform sequences in FASTA format. The FASTA file contains the sequence of the gene followed by the sequence of all reconstructed isoforms.</el-text>
             </el-space>
+            <el-text class="head">Data specifics</el-text>
+            <el-text class="paragraph"><el-text class="bold">! Case 1:</el-text> During ORF prediction, only the standard start codon ATG is considered, and the longest ORF is selected for each transcript. However, some genes have alternative start codons, resulting in incorrect ORF annotation. For example, in the AT4G18960 gene, the coding sequence does not start with ATG, meaning the automatically predicted ORF is incorrect.</el-text>
+            <el-image class="image" fit="contain" :src="screen5" />
+            <el-text class="paragraph"><el-text class="bold">! Case 2:</el-text> During isoform reconstruction, we applied additional filtering based on isoform coverage by the long reads used for their assembly. If a gene had low coverage, some or all of its isoforms may have been excluded as unreliable. To facilitate the analysis of such cases, we provide mapping results for all reads in separate replicates, allowing for manual curation of the gene and its isoforms. An example of such case is the AT2G17950 (WUS) gene, where low coverage resulted in the filtering out of certain isoforms.</el-text>
+            <el-text class="paragraph"><el-text class="bold">! Case 3:</el-text> During gene reconstruction, some TAIR10.1 genes were divided into two or more subgenes if their isoforms, despite belonging to the same gene in the reference annotation, did not overlap. In such cases, isoform names on the main plot are labeled with both the subgene number and the isoform number (e.g., 1.1, 2.1).</el-text>
+            <el-text class="paragraph">Example: In the AT1G04945 gene, two isoforms located closer to the 5' end (1.1 and 1.2) are assigned to subgene 1, while three isoforms positioned near the 3' end (2.2, 2.3, and 2.4) belong to subgene 2.</el-text>
+            <el-image class="image" fit="contain" :src="screen6" />
+            <el-text class="head">Acknowledgements</el-text>
+            <el-text class="paragraph">We thank Sofia Yudina for designing the database emblem.</el-text>
     </el-space>
     </el-main>
 </template>
@@ -75,6 +84,8 @@
   const screen2 = `${ datPath }/style_data/screen_2.png`
   const screen3 = `${ datPath }/style_data/screen_3.png`
   const screen4 = `${ datPath }/style_data/screen_4.png`
+  const screen5 = `${ datPath }/style_data/screen_5.png`
+  const screen6 = `${ datPath }/style_data/screen_6.png`
   const screen_filter_1 = `${ datPath }/style_data/screen_filter_1.png`
   const screen_filter_2 = `${ datPath }/style_data/screen_filter_2.png`
   const screen_download_1 = `${ datPath }/style_data/screen_download_1.png`

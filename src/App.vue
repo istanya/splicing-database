@@ -9,7 +9,7 @@
         <el-image class="image-logo" fit="contain" :src="dbLogo" />
       </el-main>
       <el-aside width="100px">
-        <el-image :src="dbLogoAside" />
+        <el-image style="margin-top: 5px;" :src="dbLogoAside" />
       </el-aside>
     </el-container>
     <el-container>
