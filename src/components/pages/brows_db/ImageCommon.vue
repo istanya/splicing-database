@@ -33,6 +33,7 @@
   const error = ref<string | null>(null);
   
   const pdfPath = computed((): string => {
+    errorNoInformation.value = null;
     error.value = null;
     try {
       if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){

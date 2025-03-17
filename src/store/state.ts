@@ -29,7 +29,7 @@ const state:State = {
     isIsoformsWithOrfOnly:false,
     isSortByExpression:true,
     isIGV:false,
-    geneData: geneDataMap.get('AT5G67560') as GeneData,
+    geneData: geneDataMap.get('at5g67560') as GeneData,
     geneDataMap: geneDataMap,
     
   };

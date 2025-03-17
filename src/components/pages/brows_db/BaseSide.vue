@@ -98,7 +98,7 @@
   const isIGV = ref(false)
 
   const setGene = () => {
-    store.state.geneData = store.state.geneDataMap.get(input.value) as GeneData
+    store.state.geneData = store.state.geneDataMap.get(input.value.trim().toLowerCase()) as GeneData
 
     isIGV.value = false
     store.commit(MutationTypes.SET_IS_IGV, isIGV);
