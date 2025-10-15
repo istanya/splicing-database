@@ -18,6 +18,7 @@ export interface State {
     dataUrl: string;
     isIsoformsWithOrfOnly: boolean;
     isSortByExpression: boolean;
+    isMergeByOrfs: boolean;
     isIGV: boolean;
     geneData: GeneData;
     geneDataMap: Map<string, GeneData>;
@@ -28,6 +29,7 @@ const state:State = {
     dataUrl:'https://travatrava.s3.eu-north-1.amazonaws.com',
     isIsoformsWithOrfOnly:false,
     isSortByExpression:true,
+    isMergeByOrfs:false,
     isIGV:false,
     geneData: geneDataMap.get('at5g67560') as GeneData,
     geneDataMap: geneDataMap,
@@ -37,12 +39,14 @@ const state:State = {
 export enum MutationTypes {
     SET_IS_ISOFORMS_WITH_ORF_ONLY = 'SET_IS_ISOFORMS_WITH_ORF_ONLY',
     SET_IS_SORT_BY_EXPRESSION = 'SET_IS_SORT_BY_EXPRESSION',
+    SET_IS_MERGE_BY_ORFS = 'SET_IS_MERGE_BY_ORFS',
     SET_IS_IGV = 'SET_IS_IGV',
   }
 
 export type Mutations<S = State> = {
     [MutationTypes.SET_IS_ISOFORMS_WITH_ORF_ONLY](state: S, isIsoformsWithOrfOnly: boolean): void;
     [MutationTypes.SET_IS_SORT_BY_EXPRESSION](state: S, isSortByExpression: boolean): void;
+    [MutationTypes.SET_IS_MERGE_BY_ORFS](state: S, isMergeByOrfs: boolean): void;
     [MutationTypes.SET_IS_IGV](state: S, isIGV: boolean): void;
   };
   
@@ -52,6 +56,9 @@ const mutations: Mutations = {
     },
     [MutationTypes.SET_IS_SORT_BY_EXPRESSION](state, isSortByExpression: boolean) {
       state.isSortByExpression = isSortByExpression;
+    },
+    [MutationTypes.SET_IS_MERGE_BY_ORFS](state, isMergeByOrfs: boolean) {
+      state.isMergeByOrfs = isMergeByOrfs;
     },
     [MutationTypes.SET_IS_IGV](state, isIGV: boolean) {
       state.isIGV = isIGV;

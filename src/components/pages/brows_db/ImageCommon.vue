@@ -36,14 +36,20 @@
     errorNoInformation.value = null;
     error.value = null;
     try {
-      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
+      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && !store.state.isMergeByOrfs){
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-      } else {
+      } else if (!store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && store.state.isMergeByOrfs) {
+        return `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && store.state.isMergeByOrfs) {
+        return `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+      }else{
+        return ``
       }
     } catch (err) {
       error.value = (err as Error).message;

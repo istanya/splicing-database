@@ -25,6 +25,7 @@
   
   <el-container class='container'>
     <el-switch
+      ref='isIsoformsWithOrfOnlySwitch'
       @change='setIsIsoformsWithOrfOnly'
       v-model='isIsoformsWithOrfOnly'
       class='mb-2'
@@ -34,10 +35,20 @@
 
   <el-container class='container-group'>
     <el-switch
+      ref='isSortByExpressionSwitch'
       @change='setIsSortByExpression'
       v-model='isSortByExpression'
       class='mb-2'
       active-text='Sort by expression'
+    />
+  </el-container>
+
+  <el-container class='container-group'>
+    <el-switch
+      @change='setIsMergeByOrfs'
+      v-model='isMergeByOrfs'
+      class='mb-2'
+      active-text='Merge by ORFs'
     />
   </el-container>
   
@@ -85,7 +96,7 @@
 
 <script lang='ts' setup>
   import axios from 'axios';
-  import { ref, computed } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import { useStore } from '~/store/state';
   import { MutationTypes, GeneData} from '~/store/state'
@@ -95,7 +106,11 @@
   const input = ref(store.state.geneData.gene_id)
   const isIsoformsWithOrfOnly = ref(store.state.isIsoformsWithOrfOnly)
   const isSortByExpression = ref(store.state.isSortByExpression)
+  const isMergeByOrfs = ref(store.state.isMergeByOrfs)
   const isIGV = ref(false)
+
+  const isIsoformsWithOrfOnlySwitch = ref<InstanceType<typeof import('element-plus')['ElSwitch']> | null>(null)
+  const isSortByExpressionSwitch = ref<InstanceType<typeof import('element-plus')['ElSwitch']> | null>(null)
 
   const setGene = () => {
     store.state.geneData = store.state.geneDataMap.get(input.value.trim().toLowerCase()) as GeneData
@@ -106,10 +121,35 @@
 
   const setIsIsoformsWithOrfOnly = () => {
     store.commit(MutationTypes.SET_IS_ISOFORMS_WITH_ORF_ONLY, isIsoformsWithOrfOnly);
+    if (isMergeByOrfs.value){
+      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
+        isSortByExpressionSwitch.value?.$el.click()
+      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
+        isSortByExpressionSwitch.value?.$el.click()
+      }
+    }
   };
 
   const setIsSortByExpression = () => {
     store.commit(MutationTypes.SET_IS_SORT_BY_EXPRESSION, isSortByExpression);
+    if (isMergeByOrfs.value){
+      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
+        isIsoformsWithOrfOnlySwitch.value?.$el.click()
+      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
+        isIsoformsWithOrfOnlySwitch.value?.$el.click()
+      }
+    }
+  };
+
+  const setIsMergeByOrfs = () => {
+    store.commit(MutationTypes.SET_IS_MERGE_BY_ORFS, isMergeByOrfs);
+    if (isMergeByOrfs.value){
+      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
+        isIsoformsWithOrfOnlySwitch.value?.$el.click()
+      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
+        isSortByExpressionSwitch.value?.$el.click()
+      }
+    }
   };
 
   const setIsIGV = () => {
@@ -118,14 +158,20 @@
 
   const downloadFigureFile = async() => {
       let fileUrl:string;
-      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression){
+      if (store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && !store.state.isMergeByOrfs){
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression) {
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression) {
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
-      } else {
+      } else if (!store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && store.state.isMergeByOrfs) {
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
+      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && store.state.isMergeByOrfs) {
+        fileUrl = `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
+      } else {
+        fileUrl = ``;
       }
    
       const fileName =`${store.state.geneData.gene_id}.pdf`;
