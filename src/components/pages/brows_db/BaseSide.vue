@@ -30,6 +30,7 @@
       v-model='isIsoformsWithOrfOnly'
       class='mb-2'
       active-text='Isoforms with ORF only'
+      :disabled="isMergeByOrfs.valueOf()"
     />
   </el-container>
 
@@ -121,33 +122,17 @@
 
   const setIsIsoformsWithOrfOnly = () => {
     store.commit(MutationTypes.SET_IS_ISOFORMS_WITH_ORF_ONLY, isIsoformsWithOrfOnly);
-    if (isMergeByOrfs.value){
-      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
-        isSortByExpressionSwitch.value?.$el.click()
-      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
-        isSortByExpressionSwitch.value?.$el.click()
-      }
-    }
   };
 
   const setIsSortByExpression = () => {
     store.commit(MutationTypes.SET_IS_SORT_BY_EXPRESSION, isSortByExpression);
-    if (isMergeByOrfs.value){
-      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
-        isIsoformsWithOrfOnlySwitch.value?.$el.click()
-      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
-        isIsoformsWithOrfOnlySwitch.value?.$el.click()
-      }
-    }
   };
 
   const setIsMergeByOrfs = () => {
     store.commit(MutationTypes.SET_IS_MERGE_BY_ORFS, isMergeByOrfs);
     if (isMergeByOrfs.value){
-      if (!isIsoformsWithOrfOnly.value && !isSortByExpression.value){
+      if (isIsoformsWithOrfOnly.value){
         isIsoformsWithOrfOnlySwitch.value?.$el.click()
-      }else if (isIsoformsWithOrfOnly.value && isSortByExpression.value) {
-        isSortByExpressionSwitch.value?.$el.click()
       }
     }
   };
@@ -166,9 +151,9 @@
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
       } else if (!store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && store.state.isMergeByOrfs) {
+      } else if (!store.state.isSortByExpression && store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && store.state.isMergeByOrfs) {
+      } else if (store.state.isSortByExpression && store.state.isMergeByOrfs) {
         fileUrl = `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
       } else {
         fileUrl = ``;

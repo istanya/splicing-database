@@ -44,9 +44,9 @@
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_w_cds_only/${store.state.geneData.gene_id}.pdf`;
       } else if (!store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && !store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (store.state.isIsoformsWithOrfOnly && !store.state.isSortByExpression && store.state.isMergeByOrfs) {
+      } else if (!store.state.isSortByExpression && store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_len_all/${store.state.geneData.gene_id}.pdf`;
-      } else if (!store.state.isIsoformsWithOrfOnly && store.state.isSortByExpression && store.state.isMergeByOrfs) {
+      } else if (store.state.isSortByExpression && store.state.isMergeByOrfs) {
         return `${ store.state.dataUrl }/picts/v2/picts_orf_sort_by_expr_all/${store.state.geneData.gene_id}.pdf`;
       }else{
         return ``
